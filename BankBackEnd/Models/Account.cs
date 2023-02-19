@@ -1,6 +1,6 @@
 namespace BankBackEnd.Models
 {
-    public class Accounts
+    public class Account
     {
         public int Id { get; set; }
         public string AccountType { get; set; }
