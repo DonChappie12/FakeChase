@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Identity;
 namespace BankBackEnd.Models
 {
     public class DBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+    // public class DBContext : DbContext
     {
         protected readonly IConfiguration Configuration;
-        public DBContext(IConfiguration configuration, DbContextOptions<DBContext> options) : base(options)
+        // public DBContext(IConfiguration configuration)
+        public DBContext(IConfiguration configuration, DbContextOptions<DBContext> options): base(options)
         {
             Configuration = configuration;
         }
