@@ -512,3 +512,10 @@
 /Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/obj/Debug/net6.0/BankBackEnd.pdb
 /Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/obj/Debug/net6.0/BankBackEnd.genruntimeconfig.cache
 /Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/obj/Debug/net6.0/ref/BankBackEnd.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.IdentityModel.Logging.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
+/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll
