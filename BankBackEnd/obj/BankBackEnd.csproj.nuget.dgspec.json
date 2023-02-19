@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/DonDavid/Documents/Personal_Coding/Bank/BankBackEnd/BankBackEnd.csproj": {}
+    "/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/BankBackEnd.csproj": {}
   },
   "projects": {
-    "/Users/DonDavid/Documents/Personal_Coding/Bank/BankBackEnd/BankBackEnd.csproj": {
+    "/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/BankBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/DonDavid/Documents/Personal_Coding/Bank/BankBackEnd/BankBackEnd.csproj",
+        "projectUniqueName": "/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/BankBackEnd.csproj",
         "projectName": "BankBackEnd",
-        "projectPath": "/Users/DonDavid/Documents/Personal_Coding/Bank/BankBackEnd/BankBackEnd.csproj",
-        "packagesPath": "/Users/DonDavid/.nuget/packages/",
-        "outputPath": "/Users/DonDavid/Documents/Personal_Coding/Bank/BankBackEnd/obj/",
+        "projectPath": "/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/BankBackEnd.csproj",
+        "packagesPath": "/Users/davidgonzalez/.nuget/packages/",
+        "outputPath": "/Users/davidgonzalez/Documents/personal_code/FakeChase/BankBackEnd/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/DonDavid/.nuget/NuGet/NuGet.Config"
+          "/Users/davidgonzalez/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -92,7 +92,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -104,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.404/RuntimeIdentifierGraph.json"
         }
       }
     }
