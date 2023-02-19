@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankBackEnd.Controllers
@@ -10,6 +7,11 @@ namespace BankBackEnd.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
+        private readonly IMapper _mapper;
+        public AccountController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         [HttpGet]
         public void Get()
         {

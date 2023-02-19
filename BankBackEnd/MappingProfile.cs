@@ -1,4 +1,6 @@
 using AutoMapper;
+using BankBackEnd.Dtos;
+using BankBackEnd.Models;
 
 namespace BankBackEnd
 {
