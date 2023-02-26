@@ -10,19 +10,19 @@ namespace BankBackEnd.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        // private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DBContext _context;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
             UserManager<User> userManager,
-            // RoleManager<IdentityRole> roleManager,
+            RoleManager<IdentityRole> roleManager,
             DBContext context,
             IConfiguration configuration
             )
         {
             _userManager = userManager;
-            // _roleManager = roleManager;
+            _roleManager = roleManager;
             _context = context;
             _configuration = configuration;
         }

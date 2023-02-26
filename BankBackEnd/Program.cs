@@ -31,7 +31,10 @@ builder.Services.AddDefaultIdentity<User>(options =>{
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<DBContext>().AddDefaultTokenProviders();
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<DBContext>()
+.AddDefaultTokenProviders();
 
 // Add Authentication
 builder.Services.AddAuthentication(options =>
