@@ -13,16 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank API", Version = "v1" })
-);
+builder.Services.AddSwaggerGen();
+// builder.Services.AddSwaggerGen(c =>
+//     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank API", Version = "v1" })
+// );
 
 var connectionString = builder.Configuration.GetConnectionString("DBConnection");
 var secretKey = builder.Configuration["JWT:Secret"];
 builder.Services.AddDbContext<DBContext>(x => x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add Identity
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>{
+builder.Services.AddDefaultIdentity<User>(options =>{
     options.SignIn.RequireConfirmedAccount = true;
     // options.Lockout.MaxFailedAccessAttempts = 10;
     options.Password.RequireDigit = false;
