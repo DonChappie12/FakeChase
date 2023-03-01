@@ -52,5 +52,19 @@ namespace BankBackEnd.Controllers
 
             return BadRequest("User could not be created");
         }
+
+        [HttpPost("login-user")]
+        public async Task<IActionResult> Login([FromBody]LoginVM loginUser)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest("Please provide all require fields");
+
+            var userExist = await _userManager.FindByEmailAsync(loginUser.Email);
+            if(userExist != null && await _userManager.CheckPasswordAsync(userExist, loginUser.Password))
+            {
+                return Ok("User signed in");
+            }
+            return Unauthorized();
+        }
     }
 }
