@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Todo: Have swagger have custom title, version, etc
 // builder.Services.AddSwaggerGen(c =>
 //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank API", Version = "v1" })
 // );
@@ -71,8 +72,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

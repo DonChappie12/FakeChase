@@ -1,21 +1,24 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankBackEnd.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+    // [AllowAnonymous]
     public class AccountController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        public AccountController(IMapper mapper)
+        // private readonly IMapper _mapper;
+        public AccountController()
         {
-            _mapper = mapper;
+            // _mapper = mapper;
         }
         [HttpGet]
-        public void Get()
+        public ActionResult Get()
         {
-            System.Console.WriteLine("Get");
+            return Ok("This is the AccountContoller");
         }
 
         [HttpPost]
