@@ -98,9 +98,24 @@ namespace BankBackEnd.Controllers
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 
+            var refreshToken = new RefreshToken()
+            {
+                JwtId = token.Id,
+                IsRevoked = false,
+                UserId = user.Id,
+                DateAdded = DateTime.UtcNow,
+                // ? May have to change this since this is a banking app so token shouldn't be available all the time
+                DateExpire = DateTime.UtcNow.AddMonths(1),
+                Token = Guid.NewGuid().ToString() + "-" + Guid.NewGuid().ToString()
+            };
+
+            await _context.RefreshTokens.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+
             var response = new AuthResultVM()
             {
                 Token = jwtToken,
+                RefreshToken = refreshToken.Token,
                 ExpiresAt = token.ValidTo
             };
 
