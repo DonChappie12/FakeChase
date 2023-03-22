@@ -5,6 +5,7 @@ using BankBackEnd.Models;
 using BankBackEnd.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BankBackEnd.Controllers
@@ -17,13 +18,15 @@ namespace BankBackEnd.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DBContext _context;
         private readonly IConfiguration _configuration;
+        private readonly TokenValidationParameters _tokenValidationParameters;
         // private readonly ILogger _logger;
 
         public AuthenticationController(
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             DBContext context,
-            IConfiguration configuration
+            IConfiguration configuration,
+            TokenValidationParameters tokenValidationParameters
             // ILogger logger
             )
         {
@@ -31,6 +34,7 @@ namespace BankBackEnd.Controllers
             _roleManager = roleManager;
             _context = context;
             _configuration = configuration;
+            _tokenValidationParameters = tokenValidationParameters;
             // _logger = logger;
         }
 
@@ -69,13 +73,48 @@ namespace BankBackEnd.Controllers
             var userExist = await _userManager.FindByEmailAsync(loginUser.Email);
             if(userExist != null && await _userManager.CheckPasswordAsync(userExist, loginUser.Password))
             {
-                var tokenValue = await GenerateJWTToken(userExist);
+                var tokenValue = await GenerateJWTToken(userExist, null);
                 return Ok(tokenValue);
             }
             return Unauthorized();
         }
 
-        private async Task<AuthResultVM> GenerateJWTToken(User user)
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody]TokenRequestVM tokenRequest)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest("Please provide all require fields");
+
+            var result = await VerifyAndGenerateTokenAsync(tokenRequest);
+            return Ok(result);
+        }
+
+        private async Task<AuthResultVM> VerifyAndGenerateTokenAsync(TokenRequestVM token)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var storedToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Token == token.RefreshToken);
+            var dbUser = await _userManager.FindByIdAsync(storedToken.UserId);
+
+            try
+            {
+                var tokenCheckResult = jwtTokenHandler.ValidateToken(token.Token, _tokenValidationParameters, out var validatedToken);
+
+                    return await GenerateJWTToken(dbUser, storedToken);
+            }
+            catch (SecurityTokenExpiredException )
+            {
+                if(storedToken.DateExpire >= DateTime.UtcNow)
+                {
+                    return await GenerateJWTToken(dbUser, storedToken);
+                }
+                else
+                {
+                    return await GenerateJWTToken(dbUser, null);
+                }
+            }
+        }
+
+        private async Task<AuthResultVM> GenerateJWTToken(User user, RefreshToken rToken)
         {
             var authClaims = new List<Claim>()
             {
@@ -97,6 +136,18 @@ namespace BankBackEnd.Controllers
             );
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+            if(rToken != null)
+            {
+                var rTokenResponse = new AuthResultVM()
+                {
+                    Token = jwtToken,
+                    RefreshToken = rToken.Token,
+                    ExpiresAt = token.ValidTo
+                };
+
+                return rTokenResponse;
+            }
 
             var refreshToken = new RefreshToken()
             {

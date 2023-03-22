@@ -23,6 +23,23 @@ var connectionString = builder.Configuration.GetConnectionString("DBConnection")
 var secretKey = builder.Configuration["JWT:Secret"];
 builder.Services.AddDbContext<DBContext>(x => x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+var tokenValidationParameters = new TokenValidationParameters()
+{
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
+
+    ValidateIssuer = true,
+    ValidIssuer = builder.Configuration["JWT:Issuer"],
+
+    ValidateAudience = true,
+    ValidAudience = builder.Configuration["JWT:Audience"],
+
+    ValidateLifetime = true,
+    ClockSkew = TimeSpan.Zero
+};
+
+builder.Services.AddSingleton(tokenValidationParameters);
+
 // Add Identity
 builder.Services.AddDefaultIdentity<User>(options =>{
     options.SignIn.RequireConfirmedAccount = true;
@@ -48,17 +65,18 @@ builder.Services.AddAuthentication(options =>
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
+    options.TokenValidationParameters = tokenValidationParameters;
+    // options.TokenValidationParameters = new TokenValidationParameters()
+    // {
+    //     ValidateIssuerSigningKey = true,
+    //     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
 
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
+    //     ValidateIssuer = true,
+    //     ValidIssuer = builder.Configuration["JWT:Issuer"],
 
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"],
-    };
+    //     ValidateAudience = true,
+    //     ValidAudience = builder.Configuration["JWT:Audience"],
+    // };
 });
 
 var app = builder.Build();
