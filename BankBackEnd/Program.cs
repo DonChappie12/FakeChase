@@ -93,6 +93,58 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+CreateRoles(builder.Services.BuildServiceProvider()).Wait();
+
 app.MapControllers();
 
 app.Run();
+
+async Task CreateRoles(IServiceProvider serviceProvider)
+{
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+    //** Basics of role but could add more roles
+    string[] roleNames = {"Admin", "Manager", "Customer"};
+
+    // ** Checks if role exists, if not it will create role
+    foreach(string role in roleNames)
+    {
+        if(!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    // ** Seeds new Admin user if no user exist in Admin role
+    var existingAdmin = await userManager.FindByEmailAsync("admin@admin.com");
+    if (existingAdmin == null)
+    {
+        var newAdmin = new User
+        {
+            FirstName = "Admin",
+            Email = "admin@admin.com",
+            UserName = "admin@admin.com"
+        };
+
+        var createAdmin = await userManager.CreateAsync(newAdmin, "Admin2023!");
+        if(createAdmin.Succeeded)
+            await userManager.AddToRoleAsync(newAdmin, "Admin");
+    }
+
+    // ** Seeds new Manager user if no user exist in Manager role
+    var existingManager = await userManager.FindByEmailAsync("manager@manager.com");
+    if (existingManager == null)
+    {
+        var newManager = new User
+        {
+            FirstName = "Manager",
+            Email = "manager@manager.com",
+            UserName = "manager@manager.com"
+        };
+
+        var createManager = await userManager.CreateAsync(newManager, "Manager2023!");
+        if(createManager.Succeeded)
+            await userManager.AddToRoleAsync(newManager, "Manager");
+    }
+};
