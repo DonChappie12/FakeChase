@@ -58,8 +58,13 @@ namespace BankBackEnd.Controllers
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
+            // ** Every new customer will be associated to customer role
             var result = await _userManager.CreateAsync(newUser, registerUser.Password);
-            if(result.Succeeded) return Ok(newUser);
+            if(result.Succeeded) 
+            {
+                await _userManager.AddToRoleAsync(newUser, "Customer");
+                return Ok(newUser);
+            }
 
             return BadRequest("User could not be created");
         }

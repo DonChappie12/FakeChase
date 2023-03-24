@@ -9,7 +9,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// var services = new ServiceCollection();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -94,7 +93,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// CreateRoles(services.BuildServiceProvider()).Wait();
 CreateRoles(builder.Services.BuildServiceProvider()).Wait();
 
 app.MapControllers();
