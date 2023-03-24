@@ -22,5 +22,6 @@ namespace BankBackEnd.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }
