@@ -7,7 +7,6 @@ namespace BankBackEnd.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    // [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         // private readonly IMapper _mapper;
