@@ -106,6 +106,8 @@ async Task CreateRoles(IServiceProvider serviceProvider)
 
     //** Basics of role but could add more roles
     string[] roleNames = {"Admin", "Manager", "Customer"};
+    // List<string> roleNames2 = new List<string>();
+    // roleNames2.AddRange(roleNames);
 
     // ** Checks if role exists, if not it will create role
     foreach(string role in roleNames)
@@ -130,6 +132,10 @@ async Task CreateRoles(IServiceProvider serviceProvider)
         var createAdmin = await userManager.CreateAsync(newAdmin, "Admin2023!");
         if(createAdmin.Succeeded)
             await userManager.AddToRoleAsync(newAdmin, "Admin");
+            // ** If we drop the DB probably use the code below to add multiple roles at once
+            // await userManager.AddToRolesAsync(newAdmin, new[] {"Admin", "Manager"});
+            // await userManager.AddToRolesAsync(newAdmin, roleNames);
+            // await userManager.AddToRolesAsync(newAdmin, roleNames2 );
     }
 
     // ** Seeds new Manager user if no user exist in Manager role

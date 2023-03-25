@@ -26,10 +26,20 @@ namespace BankBackEnd.Controllers
         }
 
         [HttpGet("get-all-users")]
-        public  IActionResult GetAllUsers()
+        public IActionResult GetAllUsers()
         {
             var allUsers = _context.Users.ToList();
             return Ok(allUsers);
+        }
+
+        [HttpGet("get-one-user/{id}")]
+        public async Task<IActionResult> GetOneUser([FromRoute]string id)
+        {
+            var getOne = await _context.Users.FindAsync(id);
+            if(getOne == null)
+                return BadRequest($"No user with Id: {id}");
+                
+            return Ok(getOne);
         }
 
         [HttpPost]
