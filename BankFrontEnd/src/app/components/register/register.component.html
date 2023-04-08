@@ -1,16 +1,6 @@
-<div>
+<div class="container text-center">
   <h3>Register to start banking the right way!</h3>
   <form [formGroup]="registerUser" (ngSubmit)="onSubmit()">
-    <!-- <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field> -->
 
     <table>
       <tr>
@@ -18,12 +8,12 @@
           <mat-form-field>
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName">
-            <!-- * Displays errors if any * -->
+            <!-- * Displays errors if any *
             <!-- Todo: Most likely make this dynamic -->
-            <mat-error *ngIf="registerUser.hasError('minLength') && !registerUser.hasError('required')">
+            <mat-error *ngIf="registerUser.hasError('minlength', 'firstName') && !registerUser.hasError('required', 'firstName')">
               First name must be more than 2 characters
             </mat-error>
-            <mat-error *ngIf="registerUser.hasError('required')">
+            <mat-error *ngIf="registerUser.hasError('required', 'firstName')">
               First name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -39,22 +29,34 @@
         </td>
       </tr>
 
-      <!-- <tr>
+      <tr>
         <td>
           <mat-form-field>
             <mat-label>Last Name</mat-label>
-            <input matInput>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="registerUser.hasError('minlength', 'lastName') && !registerUser.hasError('required', 'lastName')">
+              Last name must be more than 2 characters
+            </mat-error>
+            <mat-error *ngIf="registerUser.hasError('required', 'lastName')">
+              Last name is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </td>
-      </tr> -->
+      </tr>
     </table>
 
-    <!-- <table>
+    <table>
       <tr>
         <td>
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="registerUser.hasError('email', 'email') && !registerUser.hasError('required', 'email')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="registerUser.hasError('required', 'email')">
+              Email is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </td>
       </tr>
@@ -63,12 +65,51 @@
         <td>
           <mat-form-field>
             <mat-label>User Name</mat-label>
-            <input matInput>
+            <input matInput formControlName="userName">
+            <mat-error *ngIf="registerUser.hasError('minlength', 'userName') && !registerUser.hasError('required', 'userName')">
+              User name must have more that 5 characters
+            </mat-error>
+            <mat-error *ngIf="registerUser.hasError('required', 'userName')">
+              User name is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </td>
       </tr>
-    </table> -->
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password">
+            <mat-error *ngIf="registerUser.hasError('minlength', 'password') && !registerUser.hasError('required', 'password')">
+              Password must have more that 5 characters
+            </mat-error>
+            <mat-error *ngIf="registerUser.hasError('required', 'password')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Confirm password</mat-label>
+            <input matInput formControlName="confirmPassword">
+            <mat-error *ngIf="registerUser.hasError('minlength', 'confirmPassword') && !registerUser.hasError('required', 'confirmPassword')">
+              User name must have more that 5 characters
+            </mat-error>
+            <mat-error *ngIf="registerUser.hasError('required', 'confirmPassword')">
+              Confirm Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
 
-    <button mat-button type="submit" [disabled]="!registerUser.valid">Submit</button>
+    <button
+      mat-button type="submit"
+      [disabled]="!registerUser.valid"
+    >
+      Submit
+    </button>
   </form>
 </div>

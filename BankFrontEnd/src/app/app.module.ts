@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //* Components */
 import { AppComponent } from './app.component';
@@ -13,11 +14,12 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { GeneralDashboardComponent } from './components/general-dashboard/general-dashboard.component';
 
-//* Angular Material Components */
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatButtonModule } from '@angular/material/button';
+// * Services */
+import { AuthServiceService } from './services/auth/auth-service.service';
+
+//* Angular Material Modules */
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -34,12 +36,11 @@ import { MatInputModule } from '@angular/material/input';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-    MatButtonModule,
-    MatInputModule
+    HttpClientModule,
+    MatInputModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
